@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "whats-for-lunch"
+version = "0.1.0"
+description = ""
+authors = ["Max Herbert <max.herbert@diamond.ac.uk>"]
+readme = "README.md"
+packages = [{include = "whats_for_lunch"}]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+requests = "^2.31.0"
+pyyaml = "5.1"
+typer = "^0.13.1"
+
+[tool.poetry.scripts]
+whats-for-lunch= "whats_for_lunch.main:app"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
