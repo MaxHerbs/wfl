@@ -29,13 +29,18 @@ def get_todays_menu():
     response = make_request(endpoint, "")
     thisMenu = Menu(response)
     typer.echo(str(thisMenu))
-    typer.Exit(0)
+    raise typer.Exit(0)
 
 
 def make_request(endpoint: str, query: str):
     response = requests.get(f"{endpoint}/{query}")
     if not response.status_code == 200:
         raise ValueError(f"Failed to get data from server. Status code: {response.status_code}")
+    
+    err = response.json().pop("error", None)
+    if err:
+        typer.echo(err)
+        raise typer.Exit(0)
     return response.json()
 
 
@@ -45,7 +50,7 @@ def get_tomorrows_menu():
     response = make_request(endpoint, "tomorrow")
     thisMenu = Menu(response)
     typer.echo(str(thisMenu))
-    typer.Exit(0)
+    raise typer.Exit(0)
 
 def get_crumble_day():
     endpoint = get_server_address()
@@ -55,7 +60,7 @@ def get_crumble_day():
         typer.echo("No crumble served for the rest of this week!")
         typer.Exit(0)
     typer.echo(f"Crumble is served on {days}")
-    typer.Exit(0)
+    raise typer.Exit(0)
 
 def dump_menu():
     raise NotImplementedError("Not implemented yet")
