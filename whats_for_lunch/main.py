@@ -58,7 +58,7 @@ def get_crumble_day():
     days = response["days"]
     if days == "No crumble left this week":
         typer.echo("No crumble served for the rest of this week!")
-        typer.Exit(0)
+        raise typer.Exit(0)
     typer.echo(f"Crumble is served on {days}")
     raise typer.Exit(0)
 
